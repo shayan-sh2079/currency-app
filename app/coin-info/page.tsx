@@ -8,7 +8,7 @@ export interface CoinInfo {
   symbol: string;
   img: string;
   marketCap: string;
-  priceChange: string;
+  priceChange: number;
   price: string;
 }
 
@@ -30,7 +30,7 @@ const CoinsListPage = async ({
   }&sparkline=false&locale=en`;
   const data = await fetch(url).then((res) => res.json());
 
-  const coinsInfo: CoinInfo[] = data.map((info) => ({
+  const coinsInfo: CoinInfo[] = data.map((info: any) => ({
     id: info.id,
     name: info.name,
     symbol: info.symbol,

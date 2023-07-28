@@ -22,7 +22,7 @@ const CoinInfoPage = async ({ params: { coinId } }: Props) => {
       `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&tickers=false&community_data=false&developer_data=false`
     ).then((res) => res.json());
     if (!!data.error) return NotFound();
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(`There is a problem: ${e.message}`);
   }
 

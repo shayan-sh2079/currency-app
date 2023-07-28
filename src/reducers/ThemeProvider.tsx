@@ -1,19 +1,21 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   createTheme,
   PaletteMode,
   ThemeOptions,
   ThemeProvider,
   useMediaQuery,
-} from '@mui/material';
-import NextAppDirEmotionCacheProvider from '@/cache/EmotionCache';
-import CssBaseline from '@mui/material/CssBaseline';
+} from "@mui/material";
+import NextAppDirEmotionCacheProvider from "@/cache/EmotionCache";
+import CssBaseline from "@mui/material/CssBaseline";
 
-type ConTextType = null | { toggleThemeMode: () => void };
+type ConTextType = { toggleThemeMode: () => void };
 
-export const ThemeModeContext = React.createContext<ConTextType>(null);
+export const ThemeModeContext = React.createContext<ConTextType>({
+  toggleThemeMode: () => {},
+});
 
 const getThemeOptions = (mode: PaletteMode) => {
   return {
@@ -23,23 +25,23 @@ const getThemeOptions = (mode: PaletteMode) => {
     components: {
       MuiTypography: {
         defaultProps: {
-          align: 'center',
-          textTransform: 'capitalize',
+          align: "center",
+          textTransform: "capitalize",
         },
       },
     },
   } as ThemeOptions;
 };
 
-const CustomThemeProvider = ({ children }) => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [themeMode, setThemeMode] = useState<PaletteMode>('dark');
+const CustomThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [themeMode, setThemeMode] = useState<PaletteMode>("dark");
 
   const value = React.useMemo(
     () => ({
       toggleThemeMode: () => {
         setThemeMode((prevMode: PaletteMode) =>
-          prevMode === 'light' ? 'dark' : 'light'
+          prevMode === "light" ? "dark" : "light"
         );
       },
     }),
@@ -52,11 +54,11 @@ const CustomThemeProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    prefersDarkMode && setThemeMode('dark');
+    prefersDarkMode && setThemeMode("dark");
   }, [prefersDarkMode]);
 
   return (
-    <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
+    <NextAppDirEmotionCacheProvider options={{ key: "mui" }}>
       <ThemeModeContext.Provider value={value}>
         <ThemeProvider theme={theme}>
           <CssBaseline />

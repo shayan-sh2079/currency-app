@@ -31,7 +31,7 @@ const CustomTableCell = ({
   color,
   align,
 }: {
-  text: string;
+  text: string | number;
   color?: string;
   align?: 'left';
 }) => {
@@ -56,11 +56,11 @@ const SearchCoins : React.FC<Props> = ({ coinsInfo, page, initialSearch }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const addToLocalStorage = (search) => {
+  const addToLocalStorage = (search : string) => {
     if (!search || coinsInfo.length === 0) return;
     const storageValue = localStorage.getItem('favourite-coins')
     const favouriteCoins = !!storageValue && JSON.parse(storageValue);
-    const isAdded = favouriteCoins.some((item) => item === search);
+    const isAdded = favouriteCoins.some((item: string) => item === search);
     if (Array.isArray(favouriteCoins) && !isAdded) {
       favouriteCoins.push(search);
       if (favouriteCoins.length > 3) {
@@ -72,7 +72,7 @@ const SearchCoins : React.FC<Props> = ({ coinsInfo, page, initialSearch }) => {
     }
   };
 
-  const handleChangeRoute = (page, search) => {
+  const handleChangeRoute = (page: number, search: string) => {
     let newQuery = '';
     if (!!page && !!search) newQuery = `?page=${page}&search=${search}`;
     else if (!!page) newQuery = `?page=${page}`;

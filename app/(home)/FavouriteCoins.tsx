@@ -24,7 +24,7 @@ const FavouriteCoins = () => {
     (async () => {
       const storageValue = localStorage.getItem('favourite-coins')
       const favouriteCoinsIds = !!storageValue && JSON.parse(storageValue);
-      const coinsData = [];
+      const coinsData : Promise<any>[] = [];
       if (!Array.isArray(favouriteCoinsIds)) return;
       favouriteCoinsIds.forEach((coin, idx) => {
         coinsData[idx] = fetchCoinData(coin);
