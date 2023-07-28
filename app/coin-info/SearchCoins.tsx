@@ -58,7 +58,8 @@ const SearchCoins : React.FC<Props> = ({ coinsInfo, page, initialSearch }) => {
 
   const addToLocalStorage = (search) => {
     if (!search || coinsInfo.length === 0) return;
-    const favouriteCoins = JSON.parse(localStorage.getItem('favourite-coins'));
+    const storageValue = localStorage.getItem('favourite-coins')
+    const favouriteCoins = !!storageValue && JSON.parse(storageValue);
     const isAdded = favouriteCoins.some((item) => item === search);
     if (Array.isArray(favouriteCoins) && !isAdded) {
       favouriteCoins.push(search);

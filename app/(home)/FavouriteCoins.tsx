@@ -22,9 +22,8 @@ const FavouriteCoins = () => {
 
   useEffect(() => {
     (async () => {
-      const favouriteCoinsIds = JSON.parse(
-        localStorage.getItem('favourite-coins')
-      );
+      const storageValue = localStorage.getItem('favourite-coins')
+      const favouriteCoinsIds = !!storageValue && JSON.parse(storageValue);
       const coinsData = [];
       if (!Array.isArray(favouriteCoinsIds)) return;
       favouriteCoinsIds.forEach((coin, idx) => {
